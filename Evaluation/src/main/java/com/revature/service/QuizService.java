@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.entity.Quiz;
+import com.revature.entity.Subject;
 import com.revature.repo.QuizRepository;
 import com.revature.repo.SubjectRepository;
 
@@ -15,35 +16,30 @@ import com.revature.repo.SubjectRepository;
 public class QuizService {
 	
 	QuizRepository qr;
-	SubjectRepository sr;
 	
 	@Autowired
-	public QuizService(QuizRepository qRepository, SubjectRepository sRepository) {
+	public QuizService(QuizRepository qRepository) {
 		this.qr = qRepository;
-		this.sr = sRepository;
 	}
 
 	public List<Quiz> quizList() {
-		return qr.findAll();
+		return this.qr.findAll();
 	}
 	
-	public List<Quiz> findQuizBySubject(long sId) {
-		return qr.findQuizBySubject(sr.findById(sId).get());
+	public List<Quiz> findQuizBySubjectId(long subjectId) {
+		return this.qr.findQuizBySubjectId(subjectId);
 	}
 	
-	public Optional<Quiz> findById(Long id) {
-		Optional<Quiz> q = qr.findById(id);
-		q.get().setSubjectId(q.get().getSubject().getSubjectId());
-		return q;
+	public Optional<Quiz> findById(Long quizId) {
+		return this.qr.findById(quizId);
 	}
 
-	public Quiz insertQuiz(Quiz q) { 
-		q.setSubject(sr.findById(q.getSubjectId()).get()); 
-		return qr.save(q);
+	public Quiz insertQuiz(Quiz q) {
+		return this.qr.save(q);
 	}
 
 	public String deleteQuizById(Long id) {
-		qr.deleteById(id);
+		this.qr.deleteById(id);
 		return "{'message':'Quiz deleted successfully'}";
 	}
 	

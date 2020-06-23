@@ -24,9 +24,6 @@ public class Subject {
 	@Column(name="SUBJECT_NAME", unique=true)
 	private String subjectName;
 	
-//	@OneToMany(targetEntity = Quiz.class, mappedBy = "subject", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	private List<Quiz> quizList;
-	
 	public Subject() {
 		super();
 		// TODO Auto-generated constructor stub

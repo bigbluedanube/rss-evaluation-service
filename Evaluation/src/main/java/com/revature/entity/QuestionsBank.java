@@ -41,19 +41,31 @@ public class QuestionsBank {
 	
 	@Column(name="CORRECT_ANSWER", nullable=false)
 	private String correctAnswer;
-	
-	//we will create one transient field for userId
-	private transient Long quizId;
 		
-	@ManyToOne
-    @JoinColumn(name = "QUIZ_ID")
-    private Quiz quiz;
-	
+    @Column(name = "QUIZ_ID")
+    private long quizId;
 
 	public QuestionsBank() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+
+
+
+	public QuestionsBank(int questionValue, String question, String option1, String option2, String option3,
+			String option4, String option5, String correctAnswer, long quizId) {
+		super();
+		this.questionValue = questionValue;
+		this.question = question;
+		this.option1 = option1;
+		this.option2 = option2;
+		this.option3 = option3;
+		this.option4 = option4;
+		this.option5 = option5;
+		this.correctAnswer = correctAnswer;
+		this.quizId = quizId;
+	}
+
+
 
 	public long getQuestionId() {
 		return questionId;
@@ -127,31 +139,22 @@ public class QuestionsBank {
 		this.correctAnswer = correctAnswer;
 	}
 
-	public Quiz getQuiz() {
-		return quiz;
-	}
-
-
-	public void setQuiz(Quiz quiz) {
-		this.quiz = quiz;
-	}
-
-	public Long getQuizId() {
+	public long getQuizId() {
 		return quizId;
 	}
 
-	public void setQuizId(Long quizId) {
+	public void setQuizId(long quizId) {
 		this.quizId = quizId;
 	}
-
 
 	@Override
 	public String toString() {
 		return "QuestionsBank [questionId=" + questionId + ", questionValue=" + questionValue + ", question=" + question
 				+ ", option1=" + option1 + ", option2=" + option2 + ", option3=" + option3 + ", option4=" + option4
-				+ ", option5=" + option5 + ", correctAnswer=" + correctAnswer + ", quiz=" + quizId + "]";
+				+ ", option5=" + option5 + ", correctAnswer=" + correctAnswer + ", quizId=" + quizId + "]";
 	}
 	
+
 
 }
 

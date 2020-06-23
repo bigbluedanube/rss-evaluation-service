@@ -24,12 +24,17 @@ public class UserQuizScoreController {
 	@RequestMapping(value = "/takenquiz", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody()
-    public List<Long> getTakenQuiz (@RequestBody UserQuizScore uqs) {
-		List<Long> takenQuiz = new ArrayList<>();
-		takenQuiz = uqss.getTakenQuiz(uqs.getUserEmail());
-		return takenQuiz;
-		
+    public List<UserQuizScore> findUserQuizScoreByUserId(@RequestBody UserQuizScore uqs) {
+		return this.uqss.getUserQuizScoreByUserId(uqs.getUserId());
 	}
 	
-	
+	@RequestMapping(value = "/submitquiz", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody()
+	public List<String> submitQuiz(@RequestBody UserQuizScore uqs) {
+		this.uqss.InsertUserQuizScore(uqs);
+		List<String> tmp = new ArrayList<String>();
+		tmp.add("Successfully submitted quiz.");
+		return tmp;
+	}
 }

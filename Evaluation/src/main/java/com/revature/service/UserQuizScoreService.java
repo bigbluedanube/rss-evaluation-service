@@ -14,26 +14,20 @@ import com.revature.repo.UserQuizScoreRepository;
 public class UserQuizScoreService {
 
 	UserQuizScoreRepository uqsr;
-	QuizRepository qr;
 	
 	@Autowired
-	public UserQuizScoreService(UserQuizScoreRepository uqsRepository, QuizRepository qRepository) {
+	public UserQuizScoreService(UserQuizScoreRepository uqsRepository) {
 		this.uqsr=uqsRepository;
-		this.qr = qRepository;
 	}
 	
 	public UserQuizScore InsertUserQuizScore(UserQuizScore uqs) {
-		uqs.setQuiz(qr.findById(uqs.getQuizId()).get()); 
-			return uqsr.save(uqs);
+		return uqsr.save(uqs);
+	}
+		
+	public List<UserQuizScore> getUserQuizScoreByUserId(long userId) {
+	
+		return uqsr.findUserQuizScoreByUserId(userId);
+		
 	}
 	
-	public List<Long> getTakenQuiz(String userEmail){
-		List<Long> quizList = new ArrayList<>();
-		List<UserQuizScore> uqsList = new ArrayList<UserQuizScore>();
-		uqsList=uqsr.findQuizByUserEmail(userEmail);
-		for (int i = 0; i < uqsList.size(); i++) {
-		    quizList.add(uqsList.get(i).getQuiz().getQuizId());
-		}
-		return quizList;
-	}
 }

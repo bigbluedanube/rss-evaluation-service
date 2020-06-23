@@ -1,5 +1,6 @@
 package com.revature.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -20,21 +22,38 @@ public class UserQuizScore {
 	@Column(name="USER_SCORE_ID")
 	private long userScoreId;
 	
-	@Column(name="USER_EMAIL", nullable=false)
-	private String userEmail;
+	@Column(name="USER_ID", nullable=false)
+	private long userId;
 	
 	@Column(name="USER_SCORE", nullable=false)
 	private int userScore;
 	
-	@Column(name="SUBMIT_DATE", nullable=false, columnDefinition="TimeStamp")
-	private Date submitDate;
+	@Column(name="SUBMIT_DATE")
+	private java.sql.Timestamp submitDate;
 	
-	//we will create one transient field for userId
-	private transient Long quizId;
-	
-	@ManyToOne
-    @JoinColumn(name = "QUIZ_ID")
-    private Quiz quiz;
+    @Column(name = "QUIZ_ID")
+    private long quizId;
+    
+    @PrePersist
+    protected void prePersist() {
+        if (this.submitDate == null) {
+        	long millis = System.currentTimeMillis();
+        	java.sql.Timestamp ts = new java.sql.Timestamp(millis);
+        	this.submitDate = ts;
+        }
+    }
+
+	public UserQuizScore() {
+		super();
+	}
+
+	public UserQuizScore(long userId, int userScore, Timestamp submitDate, long quizId) {
+		super();
+		this.userId = userId;
+		this.userScore = userScore;
+		this.submitDate = submitDate;
+		this.quizId = quizId;
+	}
 
 	public long getUserScoreId() {
 		return userScoreId;
@@ -44,12 +63,12 @@ public class UserQuizScore {
 		this.userScoreId = userScoreId;
 	}
 
-	public String getUserEmail() {
-		return userEmail;
+	public long getUserId() {
+		return userId;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 	public int getUserScore() {
@@ -60,35 +79,29 @@ public class UserQuizScore {
 		this.userScore = userScore;
 	}
 
-	public Date getSubmitDate() {
+	public java.sql.Timestamp getSubmitDate() {
 		return submitDate;
 	}
 
-	public void setSubmitDate(Date submitDate) {
+	public void setSubmitDate(java.sql.Timestamp submitDate) {
 		this.submitDate = submitDate;
 	}
 
-	public Quiz getQuiz() {
-		return quiz;
-	}
-
-	public void setQuiz(Quiz quiz) {
-		this.quiz = quiz;
-	}
-
-	public Long getQuizId() {
+	public long getQuizId() {
 		return quizId;
 	}
 
-	public void setQuizId(Long quizId) {
+	public void setQuizId(long quizId) {
 		this.quizId = quizId;
 	}
 
 	@Override
 	public String toString() {
-		return "UserQuizScore [userScoreId=" + userScoreId + ", userEmail=" + userEmail + ", userScore=" + userScore
-				+ ", submitDate=" + submitDate + ", quiz=" + quizId + "]";
+		return "UserQuizScore [userScoreId=" + userScoreId + ", userId=" + userId + ", userScore=" + userScore
+				+ ", submitDate=" + submitDate + ", quizId=" + quizId + "]";
 	}
-	
-	
+
+
+
+
 }

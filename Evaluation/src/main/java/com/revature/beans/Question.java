@@ -1,12 +1,8 @@
-package com.revature.entity;
+package com.revature.beans;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 public class Question {
 	
-	@Id
+
 	private long questionId;
 	
 	private int questionValue;

@@ -24,7 +24,7 @@ public class SubjectController {
 	
 	@GetMapping("/all")
     public List<Subject> getAllSubjects() {
-        return ss.subjectList();
+        return this.ss.subjectList();
     }
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST,

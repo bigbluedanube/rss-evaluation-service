@@ -16,20 +16,20 @@ public class SubjectService {
 	SubjectRepository sr;
 	
 	public List<Subject> subjectList() {
-		return sr.findAll();
+		return this.sr.findAll();
 	}
 
 	public Optional<Subject> findById(Long id) {
-		return sr.findById(id);
+		return this.sr.findById(id);
 	}
 
 	public String insertSubject(Subject s) {
-		sr.save(s);
+		this.sr.save(s);
 		return "{'message':'Subject added successfully.'}";
 	}
 
 	public String deleteSubjectById(Long id) {
-		sr.deleteById(id);
+		this.sr.deleteById(id);
 		return "{'message':'Subject deleted successfully.'}";
 	}
 
