@@ -42,7 +42,7 @@ public class QuestionsBank {
 	@Column(name="CORRECT_ANSWER", nullable=false)
 	private String correctAnswer;
 	
-	//we will create one transient field for userId
+	//we will create one transient field for Quiz Id
 	private transient Long quizId;
 		
 	@ManyToOne

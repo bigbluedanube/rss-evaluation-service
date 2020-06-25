@@ -30,30 +30,17 @@ public class Quiz {
 	@Column(name="CREATOR_EMAIL", nullable=false)
 	private String creatorEmail;
 	
-	//we will create one transient field for userId
+	//we will create one transient field for Subject Id
 	private transient Long subjectId;
 		
 	@ManyToOne
     @JoinColumn(name = "SUBJECT_ID")
     private Subject subject;
 	
-//	@OneToMany(mappedBy = "quiz")
-//	private List<UserQuizScore> uqsList;
-//	
-//	@OneToMany(mappedBy = "quizQuestion")
-//	private List<QuestionsBank> qbList;
-
-//	public List<UserQuizScore> getUqsList() {
-//		return uqsList;
-//	}
-//
-//	public void setUqsList(List<UserQuizScore> uqsList) {
-//		this.uqsList = uqsList;
-//	}
 
 	public Quiz() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	

@@ -94,7 +94,7 @@ class EvaluationAppTestsMockito {
 		when(quizRepo.findQuizBySubject(subject)).thenReturn(Stream
 				.of(new Quiz()).collect(Collectors.toList()));
 		
-		assertEquals(1, quizService.findQuizBySubject(1).size());
+		assertEquals(1, quizService.findQuizBySubject(2).size());
 	}
 	
 //	@Test

@@ -1,12 +1,7 @@
 package com.revature.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 public class Question {
 	
-	@Id
 	private long questionId;
 	
 	private int questionValue;
@@ -26,6 +21,8 @@ public class Question {
 	private String selectedAnswer;
 	
 	private String userEmail;
+	
+	private long acctId;
 
 	public Question() {
 		super();
@@ -101,6 +98,14 @@ public class Question {
 
 	public void setSelectedAnswer(String selectedAnswer) {
 		this.selectedAnswer = selectedAnswer;
+	}
+
+	public long getAcctId() {
+		return acctId;
+	}
+
+	public void setAcctId(long acctId) {
+		this.acctId = acctId;
 	}
 
 	public String getUserEmail() {

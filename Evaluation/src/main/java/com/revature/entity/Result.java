@@ -1,13 +1,6 @@
 package com.revature.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 public class Result {
-	
-	@Id
-	private int resultId;
 	
 	private int totalQuestions;
 	
@@ -18,14 +11,6 @@ public class Result {
 	public Result() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public int getResultId() {
-		return resultId;
-	}
-
-	public void setResultId(int resultId) {
-		this.resultId = resultId;
 	}
 
 	public int getTotalQuestions() {
@@ -54,7 +39,7 @@ public class Result {
 
 	@Override
 	public String toString() {
-		return "Result [resultId=" + resultId + ", totalQuestions=" + totalQuestions + ", correctAnswers="
+		return "Result [totalQuestions=" + totalQuestions + ", correctAnswers="
 				+ correctAnswers + ", totalPoints=" + totalPoints + "]";
 	}
 	

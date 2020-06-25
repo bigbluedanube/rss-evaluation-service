@@ -29,7 +29,7 @@ public class UserQuizScore {
 	@Column(name="SUBMIT_DATE", nullable=false, columnDefinition="TimeStamp")
 	private Date submitDate;
 	
-	//we will create one transient field for userId
+	//we will create one transient field for Quiz Id
 	private transient Long quizId;
 	
 	@ManyToOne
