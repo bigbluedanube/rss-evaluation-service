@@ -1,27 +1,33 @@
-//This is a question bean which is a dummy bean used to send only questions and their options without correct answers to the front-end for security purposes. 
+//This is a question bean which is a dummy bean used to send only questions and their options without correct answers to the front-end for security purposes.
 //So that no one hack the JSON object and get the correct answers.
 package com.revature.beans;
 
+import com.revature.entity.OptionsBank;
+
+import java.util.Set;
+
 public class Question {
-	
+
 	private long questionId;
-	
+
 	private int questionValue;
-	
+
 	private String question;
-	
-	private String option1;
-	
-	private String option2;
-	
-	private String option3;
-	
-	private String option4;
-	
-	private String option5;
-	
+
+	private Set<OptionsBank> options;
+
+//	private String option1;
+//
+//	private String option2;
+//
+//	private String option3;
+//
+//	private String option4;
+//
+//	private String option5;
+
 	private String selectedAnswer;
-	
+
 	private String userEmail;
 
 	public Question() {
@@ -52,46 +58,54 @@ public class Question {
 		this.question = question;
 	}
 
-	public String getOption1() {
-		return option1;
+	public Set<OptionsBank> getOptions() {
+		return options;
 	}
 
-	public void setOption1(String option1) {
-		this.option1 = option1;
+	public void setOptions(Set<OptionsBank> options) {
+		this.options = options;
 	}
 
-	public String getOption2() {
-		return option2;
-	}
+	//	public String getOption1() {
+//		return option1;
+//	}
+//
+//	public void setOption1(String option1) {
+//		this.option1 = option1;
+//	}
+//
+//	public String getOption2() {
+//		return option2;
+//	}
+//
+//	public void setOption2(String option2) {
+//		this.option2 = option2;
+//	}
+//
+//	public String getOption3() {
+//		return option3;
+//	}
+//
+//	public void setOption3(String option3) {
+//		this.option3 = option3;
+//	}
+//
+//	public String getOption4() {
+//		return option4;
+//	}
+//
+//	public void setOption4(String option4) {
+//		this.option4 = option4;
+//	}
+//
+//	public String getOption5() {
+//		return option5;
+//	}
+//
+//	public void setOption5(String option5) {
+//		this.option5 = option5;
+//	}
 
-	public void setOption2(String option2) {
-		this.option2 = option2;
-	}
-
-	public String getOption3() {
-		return option3;
-	}
-
-	public void setOption3(String option3) {
-		this.option3 = option3;
-	}
-
-	public String getOption4() {
-		return option4;
-	}
-
-	public void setOption4(String option4) {
-		this.option4 = option4;
-	}
-
-	public String getOption5() {
-		return option5;
-	}
-
-	public void setOption5(String option5) {
-		this.option5 = option5;
-	}
-	
 	public String getSelectedAnswer() {
 		return selectedAnswer;
 	}
@@ -110,9 +124,20 @@ public class Question {
 
 	@Override
 	public String toString() {
-		return "Question [questionId=" + questionId + ", questionValue=" + questionValue + ", question=" + question
-				+ ", option1=" + option1 + ", option2=" + option2 + ", option3=" + option3 + ", option4=" + option4
-				+ ", option5=" + option5 + ", selectedAnswer=" + selectedAnswer + "]";
+		return "Question{" +
+				"questionId=" + questionId +
+				", questionValue=" + questionValue +
+				", question='" + question + '\'' +
+				", selectedAnswer='" + selectedAnswer + '\'' +
+				", userEmail='" + userEmail + '\'' +
+				'}';
 	}
+
+	//	@Override
+//	public String toString() {
+//		return "Question [questionId=" + questionId + ", questionValue=" + questionValue + ", question=" + question
+//				+ ", option1=" + option1 + ", option2=" + option2 + ", option3=" + option3 + ", option4=" + option4
+//				+ ", option5=" + option5 + ", selectedAnswer=" + selectedAnswer + "]";
+//	}
 
 }
