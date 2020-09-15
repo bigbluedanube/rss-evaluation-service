@@ -34,8 +34,13 @@ public class SubjectController {
 	@ResponseBody()
 	public String insertSubject (@RequestBody Subject s) {
 		//Log4j
+		System.out.println("*****************************");
+		System.out.println(s.toString());
+		System.out.println(s);
+		System.out.println("*****************************");
 		LogThis.LogIt("info","Subject added"+""+s.getSubjectName());
 		return this.ss.insertSubject(s);
+//		return "null";
 			
 	}
 }

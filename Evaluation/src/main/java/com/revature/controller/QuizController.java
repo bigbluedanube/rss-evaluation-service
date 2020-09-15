@@ -26,6 +26,9 @@ public class QuizController {
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody()
 	public Quiz insertQuiz (@RequestBody Quiz q) {
+		System.out.println("*****************************");
+		System.out.println(q.toString());
+		System.out.println("*****************************");
 		//Log4j
 		LogThis.LogIt("info","Quiz added"+" "+q.getQuizTopic());
 		System.out.println(q);

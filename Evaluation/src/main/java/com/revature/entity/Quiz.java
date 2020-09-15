@@ -37,13 +37,11 @@ public class Quiz {
 	@ManyToOne
     @JoinColumn(name = "SUBJECT_ID")
     private Subject subject;
-	
 
 	public Quiz() {
 		super();
 	}
-	
-	
+
 	public Quiz(long quizId, String quizTopic, String quizDescription, String creatorEmail, Long subjectId,
 			Subject subject) {
 		super();

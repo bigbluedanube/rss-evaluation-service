@@ -51,7 +51,7 @@ public class EvalAppTestMockitoQBS {
 		ob2.setQuestionId((long)1);
 		set.add(ob1);
 		set.add(ob2);
-		qb.setOptions(set);
+//		qb.setOptions(set);
 //		qb.setOption1("option1");
 //		qb.setOption2("option2");
 		qb.setCorrectAnswer("option1");

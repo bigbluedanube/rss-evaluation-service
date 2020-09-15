@@ -2,6 +2,9 @@ package com.revature.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.revature.entity.OptionsBank;
+import com.revature.repo.OptionsBankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +15,16 @@ import com.revature.repo.SubjectRepository;
 
 @Service
 public class QuestionsBankService {
-	
+
+	OptionsBankRepository obr;
 	QuestionsBankRepository qbr;
 	QuizRepository qr;
 	SubjectRepository sr;
 	
 	//We use constructor auto-wiring to auto-wired multiple repositories.
 	@Autowired
-	public QuestionsBankService(QuestionsBankRepository qbRepository, QuizRepository qRepository, SubjectRepository sRepository) {
+	public QuestionsBankService(OptionsBankRepository obRepository, QuestionsBankRepository qbRepository, QuizRepository qRepository, SubjectRepository sRepository) {
+		this.obr=obRepository;
 		this.qbr=qbRepository;
 		this.qr = qRepository;
 		this.sr = sRepository;
@@ -46,7 +51,7 @@ public class QuestionsBankService {
 	//we get only quizId from front-end and then we find quiz using that quizId. 
 	//Then we set that quiz in the questionsbank object to insert that record into database.
 	public QuestionsBank InsertQuestion(QuestionsBank qb) {
-		qb.setQuiz(qr.findById(qb.getQuizId()).get()); 
+		qb.setQuiz(qr.findById(qb.getQuizId()).get());
 		return qbr.save(qb);
 	}
 	

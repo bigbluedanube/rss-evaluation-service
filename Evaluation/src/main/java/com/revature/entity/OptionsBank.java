@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class OptionsBank {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY, generator="QUESTIONS_BANK_SEQ")
+    @GeneratedValue(strategy= GenerationType.IDENTITY, generator="OPTIONS_BANK_SEQ")
     @Column(name="OPTION_ID")
     private long optionId;
 
