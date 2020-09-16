@@ -16,11 +16,12 @@ public class OptionsBank {
 
     //We create one transient field for questionId.
     //It will take input from front-end and do the rest of the process which help to maintain relationship with QUIZZES table.
-    private transient Long questionId;
-
-    @ManyToOne
     @JoinColumn(name = "QUESTION_ID", nullable = false)
-    private QuestionsBank question;
+    private Long questionId;
+
+//    @ManyToOne
+//    @JoinColumn(name = "QUESTION_ID", nullable = false)
+//    private QuestionsBank question;
 
     public long getOptionId() {
         return optionId;
@@ -38,13 +39,13 @@ public class OptionsBank {
         this.option = option;
     }
 
-    public QuestionsBank getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(QuestionsBank question) {
-        this.question = question;
-    }
+//    public QuestionsBank getQuestion() {
+//        return question;
+//    }
+//
+//    public void setQuestion(QuestionsBank question) {
+//        this.question = question;
+//    }
 
     public Long getQuestionId() {
         return questionId;
@@ -54,13 +55,23 @@ public class OptionsBank {
         this.questionId = questionId;
     }
 
+//    @Override
+//    public String toString() {
+//        return "OptionsBank{" +
+//                "optionId=" + optionId +
+//                ", option='" + option + '\'' +
+//                ", questionId=" + questionId +
+//                ", question=" + question +
+//                '}';
+//    }
+
+
     @Override
     public String toString() {
         return "OptionsBank{" +
                 "optionId=" + optionId +
                 ", option='" + option + '\'' +
                 ", questionId=" + questionId +
-                ", question=" + question +
                 '}';
     }
 }

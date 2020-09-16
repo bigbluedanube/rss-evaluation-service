@@ -48,15 +48,15 @@ public class OptionsBankService {
 
     //Methods to insert option.
     public OptionsBank InsertOption(OptionsBank ob) {
-        ob.setQuestion(qbr.findById(ob.getQuestionId()).get());
+    //    ob.setQuestion(qbr.findById(ob.getQuestionId()).get());
         return obr.save(ob);
     }
 
     //Method to delete option by option ID.
-    public List<String> deleteOption(long OptionId) {
+    public List<String> deleteOption(long questionId) {
         List<String> tmp = new ArrayList<>();
-        this.qbr.deleteById(OptionId);
-        tmp.add("deleted option with id " + OptionId);
+        this.obr.deleteOptionsByQuestionId(questionId);
+        tmp.add("deleted option with id " + questionId);
         return tmp;
     }
 }

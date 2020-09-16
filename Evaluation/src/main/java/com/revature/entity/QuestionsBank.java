@@ -1,6 +1,8 @@
 //This is a questionBank entity which going to make QUESTIONS_BANK table in database and create Many-to-One relationship with QUIZZES table.
 package com.revature.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -31,8 +33,9 @@ public class QuestionsBank {
 	@JoinColumn(name = "QUIZ_ID")
 	private Quiz quiz;
 
-//	@OneToMany(mappedBy="question")
-	private transient Set<OptionsBank> options;
+	@OneToMany(mappedBy="questionId")
+	@JsonProperty("options")
+	private Set<OptionsBank> options;
 
 	public Set<OptionsBank> getOptions() {
 		return options;

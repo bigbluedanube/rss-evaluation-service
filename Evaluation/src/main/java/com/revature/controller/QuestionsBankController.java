@@ -40,19 +40,26 @@ public class QuestionsBankController {
 		this.uqss=uqsService;
 	}
 
-//	//Change endpoint from /add to /admin/add
-//	@RequestMapping(value = "/admin/addQuestion", method = RequestMethod.POST,
-//			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//
-//	@ResponseBody()
-//	public QuestionsBank insertQuestion (@RequestBody QuestionsBank qb) {
-//		//Log4j
-//		LogThis.LogIt("info","Question added");
+	//Change endpoint from /add to /admin/add
+	@RequestMapping(value = "/admin/addQuestion", method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	@ResponseBody()
+	public QuestionsBank insertQuestion (@RequestBody QuestionsBank qb) {
+		//Log4j
+		LogThis.LogIt("info","Question added");
 //		System.out.println("*****************************");
 //		System.out.println(qb.toString());
 //		System.out.println("*****************************");
-//		return this.qbs.InsertQuestion(qb);
-//	}
+//		System.out.println(qb.getOptions().toString());
+		QuestionsBank qbReturn = qbs.InsertQuestion(qb);
+		Set<OptionsBank> obSet = qbReturn.getOptions();
+		for (OptionsBank ob: obSet) {
+			ob.setQuestionId(qbReturn.getQuestionId());
+			obs.InsertOption(ob);
+		}
+		return qbReturn;
+	}
 
 	//Here we are deconstructing the String Json that comes from the front end that includes the Question along with its options
 	//in the format of(Look down). QuestionId's and optionsId's are generated on the back end. so zero is fine as input.
@@ -75,71 +82,71 @@ public class QuestionsBankController {
 //	}]
 //	}
 	//Change endpoint from /add to /admin/add
-	@RequestMapping(value = "/admin/addQuestion", method = RequestMethod.POST,
-			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-
-	@ResponseBody()
-	public QuestionsBank insertQuestion (@RequestBody String qb) {
-		System.out.println("*****************************");
-		System.out.println(qb);
-		System.out.println("*****************************");
-		ObjectMapper om = new ObjectMapper();
-		QuestionsBank q = new QuestionsBank();
-		QuestionsBank rtn = new QuestionsBank();
-		Set<OptionsBank> optionSet = new HashSet<>();
-		try {
-			Map<String,Object> check = om.readValue(qb,Map.class);
-//			System.out.println("*****************************");
-//			System.out.println(check.toString());
-//			System.out.println("*****************************");
-//			System.out.println(Long.parseLong(check.get("questionId").toString()));
-			q.setQuestionId(Long.parseLong(check.get("questionId").toString()));
-//			System.out.println("*****************************");
-//			System.out.println((int)check.get("questionValue"));
-			q.setQuestionValue((int)check.get("questionValue"));
-//			System.out.println("*****************************");
-//			System.out.println(check.get("question").toString());
-			q.setQuestion(check.get("question").toString());
-//			System.out.println("*****************************");
-//			System.out.println(check.get("correctAnswer").toString());
-			q.setCorrectAnswer(check.get("correctAnswer").toString());
-//			System.out.println("*****************************");
-//			System.out.println(Long.parseLong(check.get("quizId").toString()));
-			q.setQuizId(Long.parseLong(check.get("quizId").toString()));
-			rtn = qbs.InsertQuestion(q);
-//			System.out.println(rtn.toString());
-			String options = check.get("options").toString();
-			options = options.replace("[{", "");
-			options = options.replace("}]", "");
-			options = options.replace("{", "");
-			String[] optionsArray = options.split("}, ");
-			for (int i=0; i<optionsArray.length; i++) {
-//				System.out.println("*****************************");
-//				System.out.println(optionsArray[i]);
-				String[] str = optionsArray[i].split(", ");
-				OptionsBank ob = new OptionsBank();
-				for (int j=0; j<str.length; j++) {
-					if (j==0) {
-						str[j] = str[j].replace("optionId=", "");
-						ob.setOptionId(Long.parseLong(str[j]));
-					} else if (j==1) {
-						str[j] = str[j].replace("option=", "");
-						ob.setOption(str[j]);
-					}
-					ob.setQuestionId(rtn.getQuestionId());
-				}
-				ob.setQuestion(rtn);
-				obs.InsertOption(ob);
-				optionSet.add(ob);
-			}
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		//Log4j
-		LogThis.LogIt("info","Question added");
-//		rtn.setOptions(optionSet);
-		return rtn;
-	}
+//	@RequestMapping(value = "/admin/addQuestion", method = RequestMethod.POST,
+//			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//
+//	@ResponseBody()
+//	public QuestionsBank insertQuestion (@RequestBody String qb) {
+//		System.out.println("*****************************");
+//		System.out.println(qb);
+//		System.out.println("*****************************");
+//		ObjectMapper om = new ObjectMapper();
+//		QuestionsBank q = new QuestionsBank();
+//		QuestionsBank rtn = new QuestionsBank();
+//		Set<OptionsBank> optionSet = new HashSet<>();
+//		try {
+//			Map<String,Object> check = om.readValue(qb,Map.class);
+////			System.out.println("*****************************");
+////			System.out.println(check.toString());
+////			System.out.println("*****************************");
+////			System.out.println(Long.parseLong(check.get("questionId").toString()));
+//			q.setQuestionId(Long.parseLong(check.get("questionId").toString()));
+////			System.out.println("*****************************");
+////			System.out.println((int)check.get("questionValue"));
+//			q.setQuestionValue((int)check.get("questionValue"));
+////			System.out.println("*****************************");
+////			System.out.println(check.get("question").toString());
+//			q.setQuestion(check.get("question").toString());
+////			System.out.println("*****************************");
+////			System.out.println(check.get("correctAnswer").toString());
+//			q.setCorrectAnswer(check.get("correctAnswer").toString());
+////			System.out.println("*****************************");
+////			System.out.println(Long.parseLong(check.get("quizId").toString()));
+//			q.setQuizId(Long.parseLong(check.get("quizId").toString()));
+//			rtn = qbs.InsertQuestion(q);
+////			System.out.println(rtn.toString());
+//			String options = check.get("options").toString();
+//			options = options.replace("[{", "");
+//			options = options.replace("}]", "");
+//			options = options.replace("{", "");
+//			String[] optionsArray = options.split("}, ");
+//			for (int i=0; i<optionsArray.length; i++) {
+////				System.out.println("*****************************");
+////				System.out.println(optionsArray[i]);
+//				String[] str = optionsArray[i].split(", ");
+//				OptionsBank ob = new OptionsBank();
+//				for (int j=0; j<str.length; j++) {
+//					if (j==0) {
+//						str[j] = str[j].replace("optionId=", "");
+//						ob.setOptionId(Long.parseLong(str[j]));
+//					} else if (j==1) {
+//						str[j] = str[j].replace("option=", "");
+//						ob.setOption(str[j]);
+//					}
+//					ob.setQuestionId(rtn.getQuestionId());
+//				}
+//				ob.setQuestion(rtn);
+//				obs.InsertOption(ob);
+//				optionSet.add(ob);
+//			}
+//		} catch (JsonProcessingException e) {
+//			e.printStackTrace();
+//		}
+//		//Log4j
+//		LogThis.LogIt("info","Question added");
+////		rtn.setOptions(optionSet);
+//		return rtn;
+//	}
 
 	//Change endpoint from /delete to /admin/delete
 	@RequestMapping(value = "/admin/delete", method = RequestMethod.POST,
@@ -149,6 +156,7 @@ public class QuestionsBankController {
 	public List<String> deleteQuestion (@RequestBody QuestionsBank qb) {
 		//Log4j
 		LogThis.LogIt("info","Question deleted");
+		obs.deleteOption(qb.getQuestionId());
 		return this.qbs.deleteQuestion(qb.getQuestionId());
 	}
 
@@ -164,14 +172,20 @@ public class QuestionsBankController {
 
 		List<QuestionsBank> qbList1 = new ArrayList<QuestionsBank>();
 		for (int i = 0; i < qbList.size(); i++) {
-			qbList1.add(qbs.InsertQuestion(qbList.get(i)));
+			Set<OptionsBank> obSet = qbList.get(i).getOptions();
+			QuestionsBank qbReturn = qbs.InsertQuestion(qbList.get(i));
+			for (OptionsBank ob: obSet) {
+				ob.setQuestionId(qbReturn.getQuestionId());
+				obs.InsertOption(ob);
+			}
+			qbList1.add(qbReturn);
 		}
 		//Log4j
 		LogThis.LogIt("info","Multiple Question added");
 		return qbList1;
 	}
 
-//		//Change endpoint from /addall to /admin/addall
+		//Change endpoint from /addall to /admin/addall
 //	@RequestMapping(value = "/admin/addall", method = RequestMethod.POST,
 //			consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 //	@ResponseBody()
@@ -181,8 +195,15 @@ public class QuestionsBankController {
 //		System.out.println(qbList);
 //		System.out.println("*****************************");
 //
-////		ObjectMapper om = new ObjectMapper();
+//		ObjectMapper om = new ObjectMapper();
+//		System.out.println();
 //
+//		try {
+//			Map<String, Object> check = om.readValue(qbList, Map.class);
+//			System.out.println(check.get("options"));
+//		} catch (JsonProcessingException e) {
+//			e.printStackTrace();
+//		}
 ////		qbList = qbList.replace("},", "}");
 ////		String[] str = qbList.split(" -,- ");
 ////		System.out.println(str.length);
@@ -262,6 +283,7 @@ public class QuestionsBankController {
 
 		for (int i = 0; i < qbList.size(); i++) {
 			q = new Question();
+			System.out.println("Im here: "+qbList.get(i).getQuestionId());
 			q.setQuestionId(qbList.get(i).getQuestionId());
 			q.setQuestionValue(qbList.get(i).getQuestionValue());
 			q.setQuestion(qbList.get(i).getQuestion());
